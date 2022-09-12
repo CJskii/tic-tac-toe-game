@@ -35,8 +35,12 @@ h1{
 .player-selection{
     width: 100%;
     display: flex;
-    justify-content: space-evenly;
+    justify-content: center;
     align-items: center;
+}
+
+.player-selection>span{
+    padding: 0 2rem;
 }
 
 .game-board{
