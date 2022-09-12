@@ -21,3 +21,12 @@
     | 3 4 5 |
     | 6 7 8 |
 */
+
+document.addEventListener('DOMContentLoaded', () =>{
+  console.log("Page has been loaded")
+  const tiles = Array.from(document.querySelectorAll('.tile')) 
+  const playerX = document.querySelector('.playerX')
+  const playerO = document.querySelector('.playerO')
+  const winner = document.querySelector('.winnerSpan')
+
+} )
