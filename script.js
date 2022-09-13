@@ -59,10 +59,39 @@ document.addEventListener('DOMContentLoaded', () =>{
 
   tiles.forEach((tile, index) => {
     tile.addEventListener('click', (e) => {
-      e.target.textContent = currentPlayer
       let element = e.target
-      console.log(element.dataset)
+      index = element.dataset.index
+      if (currentPlayer == "X"){
+        e.target.textContent = currentPlayer
+        board[index] = currentPlayer
+        currentPlayer = "O"
+      } else if (currentPlayer == "O"){
+        e.target.textContent = currentPlayer
+        board[index] = currentPlayer
+        currentPlayer = "X"
+      }
+      checkBoard()
     })
   })
+
+  function checkBoard(){
+    let arrayX = []
+    let arrayO = []
+      for (let i = 0; i < board.length; i++){
+        const playerSelection = board[i]
+        if (playerSelection == "X"){
+          arrayX.push(i)
+        } else if (playerSelection == "O"){
+          arrayO.push(i)
+        }
+        
+      }
+    const arrayXsorted = arrayX.slice().sort()
+    const arrayOsorted = arrayO.slice().sort()
+    console.log("ArrayX " + arrayXsorted)
+    console.log("ArrayO " + arrayOsorted)
+    compareArray(arrayXsorted, winCondition)
+  }
+
 
 } )
