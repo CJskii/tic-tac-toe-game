@@ -61,11 +61,11 @@ document.addEventListener('DOMContentLoaded', () =>{
     tile.addEventListener('click', (e) => {
       let element = e.target
       index = element.dataset.index
-      if (currentPlayer == "X"){
+      if (currentPlayer == "X" && e.target.textContent == ""){
         e.target.textContent = currentPlayer
         board[index] = currentPlayer
         currentPlayer = "O"
-      } else if (currentPlayer == "O"){
+      } else if (currentPlayer == "O" && e.target.textContent == ""){
         e.target.textContent = currentPlayer
         board[index] = currentPlayer
         currentPlayer = "X"
@@ -83,15 +83,74 @@ document.addEventListener('DOMContentLoaded', () =>{
           arrayX.push(i)
         } else if (playerSelection == "O"){
           arrayO.push(i)
+        } else {
+          return;
         }
         
       }
     const arrayXsorted = arrayX.slice().sort()
     const arrayOsorted = arrayO.slice().sort()
-    console.log("ArrayX " + arrayXsorted)
-    console.log("ArrayO " + arrayOsorted)
     compareArray(arrayXsorted, winCondition)
+    compareArray(arrayOsorted, winCondition)
   }
 
+  function compareArray(arr1, arr2){
+    let condition
+    for (i = 0; i < arr2.length; i++){
+      condition = arr2[i]
+      let winnerArray = []
+    for(j = 0; j < arr1.length; j++){
+      let number = arr1[j]
+      let a = condition[0]
+      let b = condition[1]
+      let c = condition[2]
+      if (number == a || number == b || number == c){
+        winnerArray.push(number)
+        if (winnerArray.length == '3'){
+          console.log(condition)
+          console.log("true")
+          return true;
+        } else {
+          console.log("No match")
+        }       
+      }
+    }
+  }
+  }
+  
 
 } )
+
+let arr1 = [0, 2 , 4 , 6 , 8]
+let arr2 = [
+  [0, 1, 2],
+  [3, 4, 5],
+  [6, 7, 8],
+  [0, 3, 6],
+  [1, 4, 7],
+  [2, 5, 8],
+  [0, 4, 8],
+  [2, 4, 6]
+]
+
+function compare(arr1, arr2){
+  let condition
+  
+  for (i = 0; i < arr2.length; i++){
+    condition = arr2[i]
+    console.log(condition)
+    let winnerArray = []
+    for(j = 0; j < arr1.length; j++){
+      let number = arr1[j]
+      let a = condition[0]
+      let b = condition[1]
+      let c = condition[2]
+      if (number == a || number == b || number == c){
+        winnerArray.push(number)
+        if (winnerArray.length == '3'){
+          return true;
+        }        
+      }
+    }
+  }
+}
