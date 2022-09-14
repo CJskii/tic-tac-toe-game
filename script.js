@@ -63,7 +63,8 @@ document.addEventListener('DOMContentLoaded', () =>{
       tile.textContent = ""
     })
     board = ["", "", "", "", "", "", "", "", "" ]
-    winner.textContent = null
+    winner.textContent = "WINNER"
+    isGameActive = true
   })
 
   tiles.forEach((tile, index) => {{
@@ -134,14 +135,16 @@ document.addEventListener('DOMContentLoaded', () =>{
   }
 
   function announceWinner(player){
-    if (player == "X"){
+    if(isGameActive === false){
+      return;
+    } else if (player == "X"){
       winner.textContent = PLAYERX_WON
     } else if (player == "O"){
       winner.textContent = PLAYERO_WON
     } else if (player == "tie"){
       winner.textContent = TIE
     }
-    return;
+    return isGameActive = false;
   }
 
   function resetBoard(){
