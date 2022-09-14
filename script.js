@@ -1,20 +1,3 @@
-// Event lisener for player selection
-// Board Array
-// Win conditions
-
-// 1. Player selects X or O
-// -- start turn function
-// 2. Player click on the board
-// 3. Player selection is recorded 
-// 4. Computer turn 
-// 5. Computer selection recorded
-// check for win conditions -- end of turn
-// 6. Print winner
-
-
-
-
-
 /* 
       BOARD
     | 0 1 2 |
@@ -33,8 +16,8 @@ document.addEventListener('DOMContentLoaded', () =>{
   let board = ["", "", "", "", "", "", "", "", "" ]
   let currentPlayer = "X"
   let isGameActive = true
-  const PLAYERX_WON = "PlayerX WON"
-  const PLAYERO_WON = "PlayerO WON"
+  const PLAYERX_WON = "Player X WON"
+  const PLAYERO_WON = "Player O WON"
   const TIE = "TIE"
 
   let winCondition = [
@@ -47,6 +30,8 @@ document.addEventListener('DOMContentLoaded', () =>{
     [0, 4, 8],
     [2, 4, 6]
 ]
+
+  //Button liseners
 
   playerX.addEventListener('click', () => {
     currentPlayer = "X"
@@ -64,8 +49,12 @@ document.addEventListener('DOMContentLoaded', () =>{
     })
     board = ["", "", "", "", "", "", "", "", "" ]
     winner.textContent = "WINNER"
+    currentPlayer = "X"
     isGameActive = true
+    winner.removeAttribute('style')
   })
+
+  //Tiles lisener and functionality
 
   tiles.forEach((tile, index) => {{
       tile.addEventListener('click', (e) => {
@@ -73,11 +62,13 @@ document.addEventListener('DOMContentLoaded', () =>{
       index = element.dataset.index
       if (currentPlayer == "X" && e.target.textContent == ""){
         e.target.textContent = currentPlayer
+        element.setAttribute('style', 'color:#ff0000;')
         board[index] = currentPlayer
         currentPlayer = "O"
         checkBoard()
       } else if (currentPlayer == "O" && e.target.textContent == ""){
         e.target.textContent = currentPlayer
+        element.setAttribute('style', 'color: #00ffbf;')
         board[index] = currentPlayer
         currentPlayer = "X"
         checkBoard()
@@ -88,6 +79,8 @@ document.addEventListener('DOMContentLoaded', () =>{
     }
     
   })
+
+  //Create 2 arrays for player X and O
 
   function checkBoard(){
     let arrayX = []
@@ -105,6 +98,8 @@ document.addEventListener('DOMContentLoaded', () =>{
     compareArray(arrayXsorted, winCondition, "X")
     compareArray(arrayOsorted, winCondition, "O")
   }
+
+  //Compare ArraysPassed from CheckBoard()
 
   function compareArray(arr1, arr2, player){
       let condition
@@ -134,61 +129,22 @@ document.addEventListener('DOMContentLoaded', () =>{
     }
   }
 
+  // Announce winner from compareArray()
+
   function announceWinner(player){
     if(isGameActive === false){
       return;
     } else if (player == "X"){
       winner.textContent = PLAYERX_WON
+      winner.setAttribute('style', 'color:#ff0000;')
     } else if (player == "O"){
       winner.textContent = PLAYERO_WON
+      winner.setAttribute('style', 'color:#00ffbf;')
     } else if (player == "tie"){
       winner.textContent = TIE
     }
     return isGameActive = false;
   }
-
-  function resetBoard(){
-    
-  } 
   
 
 } )
-
-
-
-
-
-
-let arr1 = [0, 2 , 4 , 6 , 8]
-let arr2 = [
-  [0, 1, 2],
-  [3, 4, 5],
-  [6, 7, 8],
-  [0, 3, 6],
-  [1, 4, 7],
-  [2, 5, 8],
-  [0, 4, 8],
-  [2, 4, 6]
-]
-
-function compare(arr1, arr2){
-  let condition
-  
-  for (i = 0; i < arr2.length; i++){
-    condition = arr2[i]
-    console.log(condition)
-    let winnerArray = []
-    for(j = 0; j < arr1.length; j++){
-      let number = arr1[j]
-      let a = condition[0]
-      let b = condition[1]
-      let c = condition[2]
-      if (number == a || number == b || number == c){
-        winnerArray.push(number)
-        if (winnerArray.length == '3'){
-          return true;
-        }        
-      }
-    }
-  }
-}
